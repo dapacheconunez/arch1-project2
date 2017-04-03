@@ -1,15 +1,14 @@
 #include <msp430.h>
-#include "leds.h"
-#include "switches.h"
+#include "header.h"
 
-void ledInit(){
+void ledInit(){//this method is only called once, in main()
 
   P1DIR |= LEDS;
   changed = 1;
   ledToggle();
 }
 
-void ledToggle(){
+void ledToggle(){//this method toggles the led into green when a button is pressed.
 
   if(changed){
     char ledFlags = 0;

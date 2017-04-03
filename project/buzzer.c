@@ -1,8 +1,7 @@
 #include <msp430.h>
 #include <stdio.h>
 #include "libTimer.h"
-#include "buzzer.h"
-#include "switches.h"
+#include "header.h"
 #include <string.h>
 #include <stdlib.h>
 
@@ -11,7 +10,7 @@ static char *song = 0;
 static char note = 'z';
 
 
-void buzzerInit(){
+void buzzerInit(){//initialize the buzzer, this method is only called once, in main()
 
   timerAUpmode();
   P2SEL2 &= ~(BIT6 | BIT7); 
@@ -22,20 +21,20 @@ void buzzerInit(){
   
 }
 
-void buzzerSetPeriod(int cycles){
+void buzzerSetPeriod(int cycles){//this method sets the actual note in the buzzer.
 
   CCR0 = cycles;
   CCR1 = cycles >> 1;
 
 }
 
-void setMelody(){
+void setMelody(){//this method installs the melodies in memory.
   song = (char*)malloc(50);
-  strcpy(song, "gcDfgcDfdgAcdg");
+  strcpy(song, "gcDfgcDfdhAcdhAcdhfADdfADdc");//game of thrones.
 }
 
 
-void buzzerUpdate(){
+void buzzerUpdate(){//this method takes the melody code and translates it into periods.
 
   int period;
   
@@ -51,6 +50,10 @@ void buzzerUpdate(){
   switch(note){ //find out what note was read from file.
     //lowercase:natural , uppercase: sharp.
 
+  case 'h': period = 5044;//5044 is G3
+    break;
+  case 'H': period = 4761;//4761 is G#3
+    break;
   case 'a': period = 4494;//4494 is A3
     break;
   case 'A': period = 4242;//4242 is A#3
@@ -75,7 +78,10 @@ void buzzerUpdate(){
     break;
   case 'G': period = 2381;//2381 is G#4
     break;
-  default://fp = fopen("song.txt", "r");//if note aquires null or any other value, realign file pointer.
+  case 'p':
+    break;
+  
+  default:
     break;
 
   }

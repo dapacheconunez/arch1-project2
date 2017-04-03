@@ -1,8 +1,6 @@
 #include <msp430.h>
 #include "libTimer.h"
-#include "leds.h"
-#include "switches.h"
-#include "buzzer.h"
+#include "header.h"
 
 //the main method serve only to initialize all the files
 //once initialization is done, the main method is not read again.

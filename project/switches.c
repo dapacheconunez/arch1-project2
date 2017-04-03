@@ -1,33 +1,31 @@
 #include <msp430.h>
-#include "switches.h"
-#include "leds.h"
-#include "buzzer.h"
+#include "header.h"
 
 char down, changed;
 
 static char switchUpdateInterruptSense(){
 
-  char p1val = P1IN;
-  P1IES |= (p1val & SWITCHES);
-  P1IES &= (p1val | ~SWITCHES);
-  return p1val;
+  char p2val = P2IN;
+  P2IES |= (p2val & SWITCHES);
+  P2IES &= (p2val | ~SWITCHES);
+  return p2val;
   
 }
 
 void switchInit(){
 
-  P1REN |= SWITCHES;
-  P1IE = SWITCHES;
-  P1OUT |= SWITCHES;
-  P1DIR &= ~SWITCHES;
+  P2REN |= SWITCHES;
+  P2IE = SWITCHES;
+  P2OUT |= SWITCHES;
+  P2DIR &= ~SWITCHES;
   switchUpdateInterruptSense();
   switchInterruptHandler();
 }
 
 void switchInterruptHandler(){
 
-  char p1val = switchUpdateInterruptSense();
-  down = (p1val & SW1) ? 0: 1;
+  char p2val = switchUpdateInterruptSense();
+  down = (p2val & SW1) ? 0: 1;
   changed = 1;
   ledToggle();
   buzzerUpdate(down);
