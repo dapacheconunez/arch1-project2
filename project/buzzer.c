@@ -33,7 +33,7 @@ void buzzerSetPeriod(int period){//this method sets the actual note in the buzze
 void buzzerUpdate(int prev){//this method takes the melody code and translates it into periods.
 
   int last = 73;
-  switch(state){
+  switch(prev){
     
   case 1:
     if(*(s1 + i1) != '\0'){
