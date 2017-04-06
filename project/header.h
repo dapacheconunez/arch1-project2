@@ -6,9 +6,7 @@
 // Buzzer methods and variables
 void buzzerInit();
 void buzzerSetPeriod(int period);
-void buzzerUpdate();
-void setMelody();
-extern int period;
+void buzzerUpdate(int song);
 
 
 // leds methods and variables
@@ -17,15 +15,27 @@ extern int period;
 #define LEDS (BIT0 | BIT6)
 void ledInit();
 void ledToggle();
-extern char ledsChanged, greenLedState, redLedState;
 
 
 // switches methods and variables
 #define SW1 BIT0 //IN P2
 #define SW2 BIT1 //IN P2
-#define SWITCHES (BIT0 | BIT1)
+#define SW3 BIT2 //IN P2
+#define SW4 BIT3 //IN P2
+#define SWITCHES (SW1 | SW2 | SW3 | SW4)
 void switchInit();
-void switchInterruptHandler();
-extern char down, changed;
+
+//statemachine methods and variables
+void stateHandler(int status);
+
+extern int state;
+extern int time;//initially.
+extern int prev;
+extern int time;
+extern int i1;
+extern int t1;
+extern int i2;
+extern int t2;
+extern int start;
 
 #endif

@@ -2,12 +2,14 @@
 #include <stdio.h>
 #include "libTimer.h"
 #include "header.h"
-#include <string.h>
 #include <stdlib.h>
 
-static int i = 0;
-static char *song = 0;
-static char note = 'z';
+char note = 'z';
+static int period;
+static const char s1[50] = "ADdc";//game of thrones.
+static const char s2[50] = "gcDfgcDfdhAcdhAcfADdfADdc";
+static const int time1[50] = {50, 1, 50, 1};
+static const int time2[50] = {100};
 
 
 void buzzerInit(){//initialize the buzzer, this method is only called once, in main()
@@ -21,32 +23,56 @@ void buzzerInit(){//initialize the buzzer, this method is only called once, in m
   
 }
 
-void buzzerSetPeriod(int cycles){//this method sets the actual note in the buzzer.
+void buzzerSetPeriod(int period){//this method sets the actual note in the buzzer.
 
-  CCR0 = cycles;
-  CCR1 = cycles >> 1;
+  CCR0 = period;
+  CCR1 = period >> 1;
 
 }
 
-void setMelody(){//this method installs the melodies in memory.
-  song = (char*)malloc(50);
-  strcpy(song, "gcDfgcDfdhAcdhAcdhfADdfADdc");//game of thrones.
-}
+void buzzerUpdate(int prev){//this method takes the melody code and translates it into periods.
 
-
-void buzzerUpdate(){//this method takes the melody code and translates it into periods.
-
-  int period;
-  
-  if(down){
-
-    if(*(song + i) != '\0'){
-      note = *(song + i);
-      i++;
+  int last = 73;
+  switch(state){
+    
+  case 1:
+    if(*(s1 + i1) != '\0'){
+      note = *(s1 + i1);
+      i1++;
     }else{
-      i = 0;
-      note = *(song + i);
+      i1 = 0;
+      note = *(s1 + i1);
     }
+ 
+    if(*(time1 + t1) != '\0'){
+       time = *(time1 + t1);
+       t1++;
+    }else{
+       t1 = 0;
+       time = *(time1 + t1);
+    }
+    
+    break;
+
+  case 2:
+    if(*(s2 + i2) != '\0'){
+      note = *(s2 + i2);
+      i2++;
+    }else{
+      i2 = 0;
+      note = *(s2 + i2);
+    }
+    
+    if(*(time2 + t2) != '\0'){
+      time = *(time2 + t2);
+      t2++;
+    }else{
+      t2 = 0;
+      time = *(time2 + t2);
+    }
+    
+    break;
+  }
   switch(note){ //find out what note was read from file.
     //lowercase:natural , uppercase: sharp.
 
@@ -86,6 +112,6 @@ void buzzerUpdate(){//this method takes the melody code and translates it into p
 
   }
   buzzerSetPeriod(period);
-  }
+  
 }
 

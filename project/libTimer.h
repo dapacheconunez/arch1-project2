@@ -3,6 +3,7 @@
 
 void configureClocks();
 void timerAUpmode();
+void enableWDTInterrupts();
 
-void set_sr(), or_sr(), and_sr(), get_sr();
+void  or_sr();
 #endif

@@ -12,6 +12,12 @@ void configureClocks(){
 
 }
 
+void enableWDTInterrupts(){
+
+  WDTCTL = WDTPW | WDTTMSEL | WDTCNTCL | 1;
+  IE1 |= WDTIE;
+}
+
 void timerAUpmode(){
 
   TA0CCR0 = 0;
