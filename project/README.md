@@ -3,10 +3,11 @@
 This project consists of programming the MSP430 to act as a music box.
 
 Functionalities: 
--Play one of four songs continuosly.
--The songs can be programmed in on the buzzer.c file.
--The note durations of any song can be programmed.
--Songs can be played any time, not need to wait for one song to finish to play the other.
+
+1- Play one of four songs continuosly.
+2- The songs can be programmed in on the buzzer.c file.
+3- The note durations of any song can be programmed.
+4- Songs can be played any time, not need to wait for one song to finish to play the other.
 
 Files: 
 
