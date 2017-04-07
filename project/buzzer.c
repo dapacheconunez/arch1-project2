@@ -13,7 +13,7 @@ static const char s2[50] = "gcDfgcDfdhAcdhAcfADdfADdc";//game of thrones
 static const char s3[50] = "ADdc";
 
 static const int time1[100] = {25};
-static const int time2[50] = {25};
+static const int time2[50] = {100};
 static const int time3[50] = {100};
 
 void buzzerInit(){//initialize the buzzer, this method is only called once, in main()
