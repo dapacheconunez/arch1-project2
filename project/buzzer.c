@@ -8,7 +8,7 @@ char note = 'z';
 static int period;
 static const char s1[50] = "ADdc";//game of thrones.
 static const char s2[50] = "gcDfgcDfdhAcdhAcfADdfADdc";
-static const int time1[50] = {50, 1, 50, 1};
+static const int time1[50] = {50, 20, 100, 20};
 static const int time2[50] = {100};
 
 
@@ -32,7 +32,7 @@ void buzzerSetPeriod(int period){//this method sets the actual note in the buzze
 
 void buzzerUpdate(int prev){//this method takes the melody code and translates it into periods.
 
-  int last = 73;
+ 
   switch(prev){
     
   case 1:
@@ -70,12 +70,26 @@ void buzzerUpdate(int prev){//this method takes the melody code and translates i
       t2 = 0;
       time = *(time2 + t2);
     }
-    
     break;
+    
+  case 0://turn off buzzing, reset machine.
+
+    buzzerSetPeriod(0);
+    time = 0;
+    prev = 5;
+    i1 = 0;
+    i2 = 0;
+    t1 = 0;
+    t2 = 0;
+    P1OUT = LED_RED;
+    return;
+    break;//im paranoid.
   }
   switch(note){ //find out what note was read from file.
     //lowercase:natural , uppercase: sharp.
 
+  case 'I':
+    break;
   case 'h': period = 5044;//5044 is G3
     break;
   case 'H': period = 4761;//4761 is G#3
@@ -104,7 +118,7 @@ void buzzerUpdate(int prev){//this method takes the melody code and translates i
     break;
   case 'G': period = 2381;//2381 is G#4
     break;
-  case 'p':
+  case 'p'://A4
     break;
   
   default:

@@ -26,6 +26,8 @@ void ledToggle();
 void switchInit();
 
 //statemachine methods and variables
+
+void chooseState();
 void stateHandler(int status);
 
 extern int state;
