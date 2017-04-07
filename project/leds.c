@@ -2,7 +2,7 @@
 #include "header.h"
 
 int changed;
-int Bdown;
+int count = 0;
 
 void ledInit(){//this method is only called once, in main()
 
@@ -13,14 +13,18 @@ void ledInit(){//this method is only called once, in main()
 
 void ledToggle(){//this method toggles the led into green when a button is pressed.
 
-  if(changed){
-    char ledFlags = 0;
+  //if(changed){
+  char ledFlags = 0;
 
-    ledFlags |= Bdown ? LED_GREEN : 0;
-    ledFlags |= Bdown ? 0 : LED_RED;
+  count++;
+
+  if(count > 10)  count = 0;
+  
+  ledFlags |= (count%(period/1000)) ? (LED_GREEN | LED_RED) : 0;
 
     P1OUT &= (0xff - LEDS) | ledFlags;
     P1OUT |= ledFlags;
-  }
-  changed = 0;
+    
+  //}
+  //changed = 0;
 }

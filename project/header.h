@@ -7,7 +7,7 @@
 void buzzerInit();
 void buzzerSetPeriod(int period);
 void buzzerUpdate(int song);
-
+extern int period;
 
 // leds methods and variables
 #define LED_RED BIT0

@@ -25,7 +25,7 @@ void stateHandler(int state){//this method makes it so the state keeps running t
     if(++blink_count == time){
       buzzerUpdate(prev);//the buzzer is updated based on state.
       blink_count = 0;
-    }
+    }ledToggle();
  }else{
    prev = state;
  }

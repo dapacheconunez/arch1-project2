@@ -5,12 +5,16 @@
 #include <stdlib.h>
 
 char note = 'z';
-static int period;
-static const char s1[50] = "ADdc";//game of thrones.
-static const char s2[50] = "gcDfgcDfdhAcdhAcfADdfADdc";
-static const int time1[50] = {50, 20, 100, 20};
-static const int time2[50] = {100};
 
+//static constants will be stored in flash, not in RAM.
+int period = 0;
+static const char s1[100] = "PdgdPdgdPdgdPdgdPegePegePegePegeSgrgSgrgSgrgSgrgrgpgrgpgrgpgrgpg";//aerodynamic
+static const char s2[50] = "gcDfgcDfdhAcdhAcfADdfADdc";//game of thrones
+static const char s3[50] = "ADdc";
+
+static const int time1[100] = {25};
+static const int time2[50] = {25};
+static const int time3[50] = {100};
 
 void buzzerInit(){//initialize the buzzer, this method is only called once, in main()
 
@@ -71,6 +75,8 @@ void buzzerUpdate(int prev){//this method takes the melody code and translates i
       time = *(time2 + t2);
     }
     break;
+  case 3: buzzerSetPeriod(0);//missing song
+    break;
     
   case 0://turn off buzzing, reset machine.
 
@@ -87,8 +93,12 @@ void buzzerUpdate(int prev){//this method takes the melody code and translates i
   }
   switch(note){ //find out what note was read from file.
     //lowercase:natural , uppercase: sharp.
-
-  case 'I':
+    
+  case 'j': period = 5999;//5999 is E3
+    break;
+  case 'i': period = 5662;//5662 is F3
+    break;
+  case 'I': period = 5344;//5344 is F#3
     break;
   case 'h': period = 5044;//5044 is G3
     break;
@@ -118,7 +128,19 @@ void buzzerUpdate(int prev){//this method takes the melody code and translates i
     break;
   case 'G': period = 2381;//2381 is G#4
     break;
-  case 'p'://A4
+  case 'p': period = 2247;//2471 is A4
+    break;
+  case 'P': period = 2121;//2121 is A#4
+    break;
+  case 'q': period = 2002;//B4
+    break;
+  case 'r': period = 1889;//C5
+    break;
+  case 'R': period = 1783;//C#5
+    break;
+  case 's': period = 1683;//D5
+    break;
+  case 'S': period = 1589;//D#5
     break;
   
   default:
